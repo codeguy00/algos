@@ -2,6 +2,7 @@
 #include <cstdlib>//for "exit()" on some systems
 #include <vector>
 #include <string>
+#include <fstream>
 
 using namespace std;
 
@@ -14,7 +15,7 @@ using namespace std;
 */
 
 //auto linearSearch...
-
+int linearSearch(vector<string> in, string skey);
 
 int main()
 {
@@ -22,11 +23,21 @@ int main()
   string search_key, input;
   int result;
 
+  ifstream infile; 
+  infile.open("top1Mweb");
+
+  if(!infile)
+	{
+	    cout<<"Error reading from file bin/data/input"<<endl;
+
+	     return -1;
+	}
+
    cout<<"Welcome to \"search it\". We first need some input data."<<endl;
    cout<<"We'll assume the inputs do not have any spaces."<<endl;
    cout<<"\nTo end input type Ctrl + D"<<endl<<endl;
 
-    while(cin>>input)//read an unknown number of inputs
+    while(infile>>input)//read an unknown number of inputs
     {
        inputs.push_back(input);
     }
@@ -59,4 +70,15 @@ int main()
 
 
     return 0;
+}
+
+int linearSearch(vector<string> in, string skey)
+{
+	for(int i = 0; i < in.size(); i ++)
+	{
+		if(in[i] == skey)
+		return i;
+	}
+
+	return -1;
 }
